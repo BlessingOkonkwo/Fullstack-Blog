@@ -3,7 +3,7 @@ import "./home.css"
 import Header from '../../components/header/Header'
 import Posts from '../../components/posts/Posts'
 import SideBar from '../../components/sidebar/SideBar'
-import axios from "axios";
+import api from "../../api/api"
 import { useLocation } from 'react-router-dom'
 
 const Home = () => {
@@ -27,7 +27,7 @@ const Home = () => {
   
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get("/posts" + search);
+      const res = await api.get("/posts" + search);
       setPosts(res.data);
       console.log(res);
     };

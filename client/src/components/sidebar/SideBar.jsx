@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./sidebar.css"
-import axios from "axios";
+import api from "../../api/api"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -13,7 +13,7 @@ const SideBar = () => {
 
   useEffect(() => {
     const getCats = async () => {
-      const res = await axios.get("/categories")
+      const res = await api.get("/categories")
       setCats(res.data);
     };
     getCats();
@@ -43,7 +43,7 @@ const SideBar = () => {
         <span className="sidebarTitle">CATEGORIES</span>
         <ul className="sidebarList">
           {cats.map((c, i) => (
-            <Link to={`/?cat=${c.name}`} className="link">
+            <Link key={i} to={`/?cat=${c.name}`} className="link">
               <li key={i} className="sidebarListItem">{c.name}</li>
             </Link>
           ))}

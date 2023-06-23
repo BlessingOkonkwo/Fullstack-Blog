@@ -8,17 +8,21 @@ const Register = () => {
   const [email, setEmail]= useState("");
   const [password, setPassword]= useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(false);
+    setLoading(true);
     try {
       const res = await api.post("/auth/register", {
         username,
         email,
         password,
       });
-      res.data && window.location.replace("/login");
+      console.log(res.data);
+      setLoading(false);
+      // res.data && window.location.replace("/login");
     } catch (err) {
       setError(true);
       console.log(err);
@@ -35,6 +39,9 @@ const Register = () => {
         <label htmlFor="">Password</label>
         <input type="password" className="registerInput" placeholder="Enter your password..." onChange={e => setPassword(e.target.value)} />
         <button className="registerButton" type="submit">Register</button>
+        {loading && 
+          <p>loading...</p>
+        }
       </form>
       <button className="registerLoginButton">
         <Link className="link" to="/login">Login</Link>
